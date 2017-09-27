@@ -8,4 +8,6 @@ $pickpoint->send($sendingParams);
 ```
 
 ## Запуск тестов
+```
 vendor\bin\phpunit test
+```
