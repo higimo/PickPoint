@@ -1,0 +1,16 @@
+{
+	"name": "higimo/PickPoint",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "higimo",
+			"email": "higimo@gmail.com"
+		}
+	],
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Higimo\\PickPoint\\": "src"
+		}
+	}
+}
