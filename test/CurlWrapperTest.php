@@ -1,5 +1,7 @@
 <?php
+
 	use PHPUnit\Framework\TestCase;
+	use Higimo\PickPoint\CurlWrapper;
 
 	/**
 	 * @covers CurlWrapper

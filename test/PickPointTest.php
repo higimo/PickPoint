@@ -1,13 +1,12 @@
 <?php
 
 	use PHPUnit\Framework\TestCase;
-
 	use Higimo\PickPoint\PickPoint;
 
 	/**
-	 * @covers CurlWrapper
+	 * @covers PickPoint
 	 */
-	final class CurlWrapperTest extends TestCase {
+	final class PickPointTest extends TestCase {
 
 		// /**
 		//  * @expectedException ArgumentCountError
