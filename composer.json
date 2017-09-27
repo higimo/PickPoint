@@ -1,19 +1,39 @@
 {
-	"name": "higimo/PickPoint",
-	"license": "MIT",
-	"authors": [
+	"name"                : "higimo/PickPoint",
+	"type"                : "library",
+	"description"         : "Библиотека для работы с Пикпоинтом",
+	"license"             : "MIT",
+	"homepage"            : "https://github.com/higimo/PickPoint",
+	"version"             : "0.0.1",
+	"keywords"            : [
+		"pickpoint",
+		"delivery"
+	],
+	"support"             : {
+		"issues"              : "https://github.com/phar-io/manifest/issues"
+	},
+	"authors"             : [
 		{
-			"name": "higimo",
-			"email": "higimo@gmail.com"
+			"name"                : "higimo",
+			"email"               : "higimo@gmail.com",
+			"homepage"            : "http://higimo.ru/",
+			"role"                : "Developer"
 		}
 	],
-	"require": {},
-	"autoload": {
-		"psr-4": {
-			"Higimo\\PickPoint\\": "src"
+	"extra"               : {
+		"branch-alias"        : {
+			"dev-master"          : "1.4.x-dev"
 		}
 	},
-	"require-dev": {
-		"phpunit/phpunit": "^6.3"
+	"require"             : {
+		"php"                 : "^7.0"
+	},
+	"autoload"            : {
+		"psr-4"               : {
+			"Higimo\\PickPoint\\" : "src"
+		}
+	},
+	"require-dev"         : {
+		"phpunit/phpunit"     : "^6.3"
 	}
 }

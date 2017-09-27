@@ -2,16 +2,68 @@
 
 	namespace Higimo\PickPoint;
 
+	/**
+	 * Обёртка над curl
+	 *
+	 * TODO: Вероятно, стоит воспользоваться php-curl-class/php-curl-class
+	 */
 	class CurlWrapper {
 
-		private $url      = '';
-		private $method   = 'POST';
-		private $timeout  = 30;
-		private $options  = [];
-		private $response = null;
-		private $status   = null;
-		private $error    = null;
+		/**
+		 * URL назначения запроса
+		 *
+		 * @var string URL назначения запроса
+		 */
+		private $url = '';
 
+		/**
+		 * Используемый метод передачи данных
+		 *
+		 * @var string Используемый метод передачи данных
+		 */
+		private $method = 'POST';
+
+		/**
+		 * Таймаут запроса
+		 *
+		 * @var integer Таймаут запроса
+		 */
+		private $timeout = 30;
+
+		/**
+		 * Данные, которые передаются по URL
+		 *
+		 * @var array Данные, которые передаются по URL
+		 */
+		private $options = [];
+
+		/**
+		 * Результат запроса
+		 *
+		 * @var null Результат запроса
+		 */
+		private $response = null;
+
+		/**
+		 * Код статуса выполненного запроса
+		 *
+		 * @var null Код статуса выполненного запроса
+		 */
+		private $status = null;
+
+		/**
+		 * Код ошибки запроса
+		 *
+		 * @var null Код ошибки запроса
+		 */
+		private $error = null;
+
+		/**
+		 * Конструктор класса, выбрасывает исключение, если не указан URL
+		 *
+		 * @param string $url     description
+		 * @param array  $options description
+		 */
 		function __construct($url, $options = []) {
 			if (strlen($url) < 5) {
 				throw new \InvalidArgumentException('Не указан URL', 1);
@@ -20,26 +72,79 @@
 			$this->options = $options;
 		}
 
+		/**
+		 * Устанавливает результат запроса
+		 *
+		 * Возвращает указатель на этот же объект, для создания цепочек вызова
+		 *
+		 * @param  string      $response Результат запроса
+		 * @return CurlWrapper           Указатель на этот экземляр объекта
+		 */
 		public function setResponse($response) {
 			$this->response = $response;
-		}
-		public function setStatus($status) {
-			$this->status = $status;
-		}
-		public function setError($error) {
-			$this->error = $error;
+			return $this;
 		}
 
+		/**
+		 * Устанавливает код статуса выполненного запроса
+		 *
+		 * Возвращает указатель на этот же объект, для создания цепочек вызова
+		 *
+		 * @param  integer     $status Код статуса выполненного запроса
+		 * @return CurlWrapper         Указатель на этот экземляр объекта
+		 */
+		public function setStatus($status) {
+			$this->status = $status;
+			return $this;
+		}
+
+		/**
+		 * Устанавливает код ошибки запроса
+		 *
+		 * Возвращает указатель на этот же объект, для создания цепочек вызова
+		 *
+		 * @param  integer     $error Код ошибки запроса
+		 * @return CurlWrapper        Указатель на этот экземляр объекта
+		 */
+		public function setError($error) {
+			$this->error = $error;
+			return $this;
+		}
+
+		/**
+		 * Возвращает результат запроса
+		 *
+		 * @return string Результат запроса
+		 */
 		public function getResponse() {
 			return $this->response;
 		}
+
+		/**
+		 * Возвращает код статуса выполненного запроса
+		 *
+		 * @return integer Код статуса выполненного запроса
+		 */
 		public function getStatus() {
 			return $this->status;
 		}
+
+		/**
+		 * Возвращает код ошибки запроса
+		 *
+		 * @return integer Код ошибки запроса
+		 */
 		public function getError() {
 			return $this->error;
 		}
 
+		/**
+		 * Выполняет запрос на URL, хранимый в объекте
+		 *
+		 * Возвращает указатель на этот же объект, для создания цепочек вызова
+		 *
+		 * @return CurlWrapper Указатель на этот экземляр объекта
+		 */
 		public function send() {
 			$curl = curl_init($this->url);
 			$jsonData = json_encode($this->options);
