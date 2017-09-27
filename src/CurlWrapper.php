@@ -1,5 +1,7 @@
 <?php
 
+	namespace Higimo\PickPoint;
+
 	class CurlWrapper {
 
 		private $url      = '';

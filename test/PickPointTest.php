@@ -2,6 +2,8 @@
 
 	use PHPUnit\Framework\TestCase;
 
+	use Higimo\PickPoint\PickPoint;
+
 	/**
 	 * @covers CurlWrapper
 	 */
@@ -31,7 +33,14 @@
 
 		public function testPostWithParam(): void {
 			$index = new PickPoint();
-			$index->getZone('dwqd');
+			$index->getZone('Люберцы');
+
+			$this->assertTrue(true);
+		}
+
+		public function testPostWithParam2(): void {
+			$index = new PickPoint();
+			$index->login();
 
 			$this->assertTrue(true);
 		}

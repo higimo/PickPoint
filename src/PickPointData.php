@@ -2,14 +2,27 @@
 
 	namespace Higimo\PickPoint;
 
+	use SimpleXMLElement;
+
 	class PickPointData {
-		private $ptData = null;
+
+		private static $ptData = null;
+
 		function __construct() {
-			// TODO: cache
-			self::$ptData = file_get_contents('https://pickpoint.ru/postamats.xml');
-			return self::$ptData;
+			self::$ptData = $this->getData();
 		}
+
+		function getData() {
+			$strXml = file_get_contents('https://pickpoint.ru/postamats.xml');
+			$objXml = new SimpleXMLElement($strXml);
+			$arData = json_decode(json_encode($objXml), true)['pt'];
+			return $arData;
+		}
+
 		function getPostamatByCityName($name) {
-			echo '<pre>', var_dump($name), '</pre>';
+			$found = array_filter(self::$ptData, function($postamat) use ($name) {
+				return $postamat['City'] == $name;
+			});
+			return $found;
 		}
 	}

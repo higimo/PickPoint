@@ -7,38 +7,50 @@
 	 */
 	class PickPoint {
 
-		private $test = false;
+		private $isTest = true;
 
-		function __construct($test = false) {
-			$this->test = $test;
+		function __construct($isTest = true) {
+			$this->isTest = $isTest;
 		}
 
-		/**
-		 * Возвращает зону для указанного города
-		 *
-		 * @api
-		 * @param  string  $cityname Название города
-		 * @return integer           Зона доставки для указанного города
-		 */
 		public function getZone($cityname = '') {
 			require __DIR__ . '/../vendor/autoload.php';
 
 			$data = new PickPointData();
-
 			$postamatData = $data->getPostamatByCityName($cityname);
 
-			return $filtredCity[0]['zone'];
+			// file_put_contents('tet', var_export($postamatData[0], true));
+
+			// return $postamatData[0]['zone'];
 		}
 
-		/**
-		 * Адрес тестового API сервиса
-		//  */
-		// const TEST_URL        = 'https://e-solution.pickpoint.ru/apitest/';
+		public function login() {
+			$curl = new CurlWrapper($this->getUrl() . 'login', [
+				'Login'    => $this->getLogin(),
+				'Password' => $this->getPassword(),
+			]);
+			if ($curl->getStatus() === 200 && $curl->getError() === 0) {
+				$response = $curl->getResponse();
+				echo '<pre>', var_dump($response), '</pre>';
+				$this->session = $response['SessionId'];
+			}
+		}
 
-		// /**
-		//  * Адрес боевого API сервиса
-		//  */
-		// const WORK_URL        = 'https://e-solution.pickpoint.ru/api/';
+		function getUrl() {
+			if ($this->isTest) {
+				return 'https://e-solution.pickpoint.ru/apitest/';
+			} else {
+				return 'https://e-solution.pickpoint.ru/api/';
+			}
+		}
+
+		function getLogin() {
+			return 'apitest';
+		}
+
+		function getPassword() {
+			return 'apitest';
+		}
 
 		// /**
 		//  * Время ожидания отклика от сервиса
@@ -287,35 +299,7 @@
 		// 	return [$response, $status, $error];
 		// }
 
-		// /**
-		//  * Авторизуется
-		//  *
-		//  * @api
-		//  * @static
-		//  * @throws \Exception Ошибка в ответе пикпоинта
-		//  * @throws \Exception Ошибка при запросе к пикпоинту
-		//  */
-		// public static function login() {
-		// 	list($response, $status, $error) = self::post(
-		// 		'/login',
-		// 		[
-		// 			'Login'    => self::getLogin(),
-		// 			'Password' => self::getPassword(),
-		// 		],
-		// 		null
-		// 	);
 
-		// 	if ($status === 200 && $error === 0) {
-		// 		if (is_null($response['ErrorMessage'])) {
-		// 			self::$session = $response['SessionId'];
-		// 		} else {
-		// 			throw new \Exception('Ошибка в ответе пикпоинта: ' . $response['ErrorMessage'], 1);
-		// 		}
-		// 	} else {
-		// 		$errorText = sprintf('Status: %s; Error: %s', $status, $error);
-		// 		throw new \Exception('Ошибка при запросе к пикпоинту: ' . $errorText, 1);
-		// 	}
-		// }
 
 		// /**
 		//  * Выходит из авторизации
