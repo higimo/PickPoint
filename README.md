@@ -1,3 +1,11 @@
-Либа для работы с Пикпоинтом
+# higimo/PickPoint
+Библиотека для работы с Пикпоинтом
 
-php phpunit.phar --bootstrap src/PickPoint.php test/PickPointTest
+```
+$pickpoint = new PickPoint();
+$pickpoint->login();
+$pickpoint->send($sendingParams);
+```
+
+## Запуск тестов
+vendor\bin\phpunit test
